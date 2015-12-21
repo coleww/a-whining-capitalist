@@ -1,30 +1,32 @@
-# SPARKLE-MOTION
+# A WHINING CAPITALIST PIG SYNTH
 
 twinkly bell thing
 
 ## WIKI
 
-`npm install sparkle-motion`
+`npm install a-whining-capitalist`
 
 ## USE
 ```
 window.AudioContext = window.AudioContext || window.webkitAudioContext
 var ac = new AudioContext()
-var sparkle = require('sparkle-motion')(ac)
-sparkle.connect(ac.destination)
+var capitalism = require('a-whining-capitalist')(ac)
+capitalism.connect(ac.destination)
 
 // set the frequency/ADSR
-sparkle.update({midiNote: 72, attack: 0.3, decay: 0.1, sustain: 0.3, release: 0.5, peak: 0.3, mid: 0.1, end: 0.000001, lfoL: 0.3, lfoR: 0.6})
+capitalism.update({midiNote: 72, attack: 0.3, decay: 0.1, sustain: 0.3, release: 0.5, peak: 0.3, mid: 0.1, end: 0.000001, lfoL: 0.3, lfoR: 0.6})
 // and trigger it!
-sparkle.start(ac.currentTime)
+capitalism.start(ac.currentTime)
 
 
 // destroy the oscillators completely. u probably would only wanna do this for garbage collection porpoises.
-sparkle.stop(ac.currentTime)
+capitalism.stop(ac.currentTime)
 
 
-// this will return an object containing all the nodes in the sparkle-motion audioGraph, for closer-to-the-metal manipulation than the update/start methods provide.
-sparkle.nodes()
+// this will return an object containing all the nodes in the a-whining-capitalist audioGraph, for closer-to-the-metal manipulation than the update/start methods provide.
+capitalism.nodes()
+
+
 # DEVELOPMENT
 
 ```

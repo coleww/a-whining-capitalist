@@ -10,13 +10,13 @@ module.exports = function (ac, opts) {
   oscillator1.type = 'triangle'
   oscillator1.detune.value = Math.random()
   var oscillator2 = ac.createOscillator(ac)
-  oscillator2.type = 'triangle'
+  oscillator2.type = 'square'
   oscillator2.detune.value = Math.random()
   var oscillator3 = ac.createOscillator(ac)
   oscillator3.type = 'sawtooth'
   oscillator3.detune.value = Math.random()
   var oscillator4 = ac.createOscillator(ac)
-  oscillator4.type = 'triangle'
+  oscillator4.type = 'sine'
   oscillator4.detune.value = Math.random()
 
   var oscillator5 = ac.createOscillator(ac)
@@ -26,13 +26,13 @@ module.exports = function (ac, opts) {
   oscillator6.type = 'triangle'
   oscillator6.detune.value = Math.random()
 
-  var delayA = ac.createDelay(0.01322)
-  var delayB = ac.createDelay(0.0152752313103222)
-  var delayC = ac.createDelay(0.017222)
+  var delayA = ac.createDelay(0.2322)
+  var delayB = ac.createDelay(0.252752313103222)
+  var delayC = ac.createDelay(0.27222)
 
   var filterA = ac.createBiquadFilter()
   filterA.Q.value = 12
-  filterA.type = 'highpass'
+  filterA.type = 'peaking'
   filterA.detune.value = Math.random()
 
 
@@ -40,11 +40,11 @@ module.exports = function (ac, opts) {
 
   // make a distortion pedal! yay!
   var distortionA = ac.createWaveShaper()
-  distortionA.curve = makeDistortionCurve(100)
+  distortionA.curve = makeDistortionCurve(800)
 
   var filterB = ac.createBiquadFilter()
   filterB.Q.value = 12
-  filterB.type = 'highpass'
+  filterB.type = 'bandpass'
   filterB.detune.value = Math.random()
 
   // that one distortion curve that everyone copy pastes from stack overflow anyways
@@ -62,7 +62,7 @@ module.exports = function (ac, opts) {
 
   // make a distortion pedal! yay!
   var distortionC = ac.createWaveShaper()
-  distortionC.curve = makeDistortionCurve(100)
+  distortionC.curve = makeDistortionCurve(1000)
 
 
 
@@ -84,11 +84,12 @@ module.exports = function (ac, opts) {
 
   // that one distortion curve that everyone copy pastes from stack overflow anyways
 
-  var delayZ = ac.createDelay(0.0122)
+  var delayZ = ac.createDelay(0.222)
 
   // make a distortion pedal! yay!
   var distortionZ = ac.createWaveShaper()
-  distortionZ.curve = makeDistortionCurve(100)
+  distortionZ.curve = makeDistortionCurve(750)
+  distortionZ.oversample = '4x'
 
 
   var volume = ac.createGain()
@@ -206,17 +207,17 @@ module.exports = function (ac, opts) {
         if (k == 'midiNote' || k == 'freq') {
           var freq = k == 'midiNote' ? MIDIUtils.noteNumberToFrequency(v) : v
 
-          audioNodes.oscillator1.frequency.setValueAtTime(freq, when)
+          audioNodes.oscillator1.frequency.setValueAtTime(freq * 2.0, when)
           audioNodes.oscillator2.frequency.setValueAtTime(freq * 2.0, when)
-          audioNodes.oscillator3.frequency.setValueAtTime(freq * 2.0, when)
-          audioNodes.oscillator4.frequency.setValueAtTime(freq, when)
-          audioNodes.oscillator5.frequency.setValueAtTime(freq, when)
+          audioNodes.oscillator3.frequency.setValueAtTime(freq * 8.0, when)
+          audioNodes.oscillator4.frequency.setValueAtTime(freq * 4.0, when)
+          audioNodes.oscillator5.frequency.setValueAtTime(freq * 2.0, when)
           audioNodes.oscillator6.frequency.setValueAtTime(freq * 4.0, when)
 
           filterA.frequency.setValueAtTime(freq / (2 + Math.random()), when)
-          filterB.frequency.setValueAtTime(freq / (2 + Math.random()), when)
+          filterB.frequency.setValueAtTime(freq * (2 + Math.random()), when)
           filterC.frequency.setValueAtTime(freq / (Math.random()), when)
-          filterZ.frequency.setValueAtTime(freq / (1.5 + Math.random()), when)
+          filterZ.frequency.setValueAtTime(freq * (1.5 + Math.random()), when)
 
         } else if (k == 'lfoL' || k == 'lfoR') {
           var node = k == 'lfoL' ? audioNodes.oscillator5 : audioNodes.oscillator6
